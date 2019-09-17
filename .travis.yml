@@ -1,24 +1,23 @@
 language: minimal
-
 services: docker
-
 env:
+  matrix:
   - DOCKER_COMPOSE_VERSION=1.23.2
-
+  global:
+  - secure: JJqzl/x++KvWJTPxWanlRztMH5ceMN+OlBISv+eORSqGBShu0iYx8Wiu/fuZ7UkKvg5wQnQemF+zLF38EndqnNoKSMpDlIRfs5Kq/oksdncfJcRztGqLhNEvmrnJV55GjIMkCOM+ZoKIvphOfi75i9IcurbkOWbYtsz/8/J3xcook/g3dh3LDl9qyF6/HrWo5efiXvBfaDRXgC0XopSYyCdWfQaMOhKZAB2OQvkegTv1YN4uiXUogkucDtS9fe411WXjmLupRDHWGB31bc9H0cIoH3Y3x8FyylFdiLlr2HQwHeACRf7Y/vgXp+yMdODTNeskn5whP3s4PX9msVYS/+DOORwdEc7kaa3EKneUJYwsiYNTiVSiB0CJC7a4QxsC2iukPBnaTV4J4BB1NBBWbX5XYF+rZvDkRnsAkOBoyWeq06BAu934YgvtmR57Af0YcOQd8FajA3EleT8el5bBzbarFDMKKMyMne9/78wy67c4g/y4wtAl9DhnSR4ix18vY6icXjiIOlgk6fcMzjqzmhhbXIDIdP5+B+YfwUBtgpCHd+S/ufsj5IvSWJP7VdZO3CuFtZQXLAV3ZahmoN26legjP04naGhqepEe5yyaAC6o/qAnvppqcXkKIn2XQv6RDlHa1Y6ScVcJLZ+Qznkk4AThuWVDRG+mx32ixIZsyEc=
+  - secure: lYBe871GEiRWXlOmVUnrj6qWnKCelcVy/SGToxrhZFpz5/aUgiKWqvi/2OK7LpPYyI0RtcjwyXNsA+8d8cJlcLkATKhfIbwnknYHktZk/dNq3Xx8mbJU//oUG0/GsY3LDTLc4E45zNkglGQXr25hlL3r6VANalyuo8APyeFsklh5Ji6bkiIYzzkWGDEgseFbYFt+RP1hGkokgRSnFVulZx16ARFIXs5I69NCp0mpOiyUL6JlqOoASuyIUHLfv/iWpikoMXJD8lnpY1zX2YGT0ftlHGweTGM6SCKHiwQKlfRFL/RXVikvEJ6qqVRa8rgbrlhXd77AuuxYSoL/gZaFr6ylXTj5NVkN2xlhH/RWyok0uYBJzIX4eJ/Y1c41pBvxIl2VYjLUrbPhdDkNPYIiIcl05w6rG2DAGAFfJiKvAcLK9TK70cZxyhfo9AP6swPTwa4YCd+PZw+jUOi0yvQa9Fm/mefwWB/sWUqjE4qatjcGKtc4MceTLk1s0rXj7QOTkePg1Fnz1NzfNA0M+SKCmOHxCUhzAtX8qG92J+FJZFvHjc0ZrcCQcxG8G80aZz+JMiX1Waw7LyDRhyMXNr8CjNKZuEshUZBVUVwg15H5I/Oxs3uNNnSQ/pXRQxr8PzERNcH77M49YKQFnHo2UDQlvjZMaaqURjGTO7xadjbOz1Q=
 before_install:
-  - docker -v && docker-compose -v
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-  - chmod +x ./kubectl
-  - sudo mv ./kubectl /usr/local/bin/kubectl
-
-
-
+- docker -v && docker-compose -v
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+- chmod +x ./kubectl
+- sudo mv ./kubectl /usr/local/bin/kubectl
 install:
-  - docker-compose -f udagram-deployment/docker/docker-compose-build.yaml build --parallel
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker-compose -f udagram-deployment/docker/docker-compose-build.yaml push
-  - docker logout
+- docker-compose -f udagram-deployment/docker/docker-compose-build.yaml build --parallel
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+- docker-compose -f udagram-deployment/docker/docker-compose-build.yaml push
+- docker logout
